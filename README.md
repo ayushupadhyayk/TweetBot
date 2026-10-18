@@ -5,15 +5,16 @@
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--3-412991?logo=openai&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
 
-**SheeshAI** is a Twitter bot I built in **April 2022**. Each time it runs, it picks a
-random topic, asks OpenAI's GPT-3 model to write a tweet about it, and posts the result to
-Twitter automatically.
+**SheeshAI** is a Twitter bot I built in **April 2022** that used OpenAI's GPT-3 to run
+its own Twitter account. It searched for the latest trending topics and tweeted about them,
+posted jokes, and replied to anyone who tagged it, based on what they had written.
 
 > The project is stored in this repository as **`TweetBot.zip`**, exactly as originally
 > uploaded on 23 April 2022. This README explains what's inside and how it works.
 
 ## Contents
 
+- [Features](#features)
 - [What's in the zip](#whats-in-the-zip)
 - [How it works](#how-it-works)
 - [The topics](#the-topics)
@@ -21,6 +22,18 @@ Twitter automatically.
 - [Running it](#running-it)
 - [Known issues](#known-issues)
 - [Tech stack](#tech-stack)
+
+## Features
+
+- 🔥 **Tweets about trending topics.** Looked up what was trending on Twitter and wrote a tweet about it.
+- 😂 **Writes jokes.** Generated and posted jokes.
+- 💬 **Replies when tagged.** When someone mentioned the bot, it read their tweet and replied with
+  a response written for what they had said.
+- 🎲 **Random topic tweets.** Picked a topic such as technology, coding, music, nature, India or
+  the share market and tweeted about it.
+
+> **Note:** the code saved in `TweetBot.zip` covers the random-topic tweets and jokes. The
+> trending-topics and reply features aren't included in this zipped code.
 
 ## What's in the zip
 
@@ -32,6 +45,8 @@ Twitter automatically.
 | `.env/` | A Python virtual environment (installed packages). Not part of the project's code |
 
 ## How it works
+
+### Random topics and jokes (`aibot.py`)
 
 ```
  ┌──────────────────────┐     ┌──────────────────────┐     ┌──────────────────────┐
@@ -52,6 +67,19 @@ Twitter automatically.
 
 Every run posts one new tweet. Running it on a schedule (for example with cron or a task
 scheduler) turns it into a bot that tweets regularly by itself.
+
+### Trending topics and replies
+
+These two features follow the same pattern: get some text from Twitter, ask GPT-3 to write
+about it, and post the result.
+
+- **Trending topics.** Fetch the current trending topics from the Twitter API, choose one,
+  and send it to GPT-3 as the prompt for a new tweet.
+- **Replying when tagged.** Check the bot's mentions for new tweets that tag it, send each
+  tweet's text to GPT-3 to write a reply, and post that reply as a response in the same
+  conversation.
+
+As noted under [Features](#features), the code for these two isn't in `TweetBot.zip`.
 
 ## The topics
 
